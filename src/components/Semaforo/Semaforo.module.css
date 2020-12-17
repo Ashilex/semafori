@@ -1,0 +1,24 @@
+.light.active {
+    opacity: 1;
+}
+
+.light{
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+    opacity: 0.2;
+    margin: 20px;
+    border: 3px solid #282c34;
+}
+
+.greenLight {
+    background-color: #78c850;
+}
+
+.yellowLight {
+    background-color: #fff635;
+}
+
+.redLight{
+    background-color: #ff3400;
+}

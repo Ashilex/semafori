@@ -1,0 +1,17 @@
+.image {
+    overflow:visible;
+    position: relative;
+    top: -10%;
+    left: -20%;
+    /*width: 130%;*/
+    height: 130%;
+    /*object-fit: cover;*/
+    /*object-position: 100% 50%;*/
+
+}
+.imageContainer {
+    /*box-shadow: 10px 10px 5px #585858;*/
+    width: 180px;
+    height: 180px;
+    justify-content: center;
+}

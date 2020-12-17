@@ -1,0 +1,23 @@
+body{
+    font-family: sans-serif;
+}
+table img {
+    max-width: 100px;
+}
+
+table {
+    border-collapse: collapse;
+}
+table th{
+    font-weight:bold;
+}
+
+table td,
+table th {
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+.pokemonImage img {
+    max-width: 60px;
+}
