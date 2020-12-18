@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react'
 import clsx from "clsx";
 import style from './AddSemaforo.module.css';
 import Semaforo from '../../components/Semaforo/Semaforo'
+
+
 import moment from 'moment'
 
 
@@ -10,12 +12,43 @@ import moment from 'moment'
 const AddSemaforo = () => {
 	const [step, setStep] = useState(1)
 	const [data, setData] = useState([])
-	const [tempi, setTempi]	= useState({ green: '55', yellow: 'cxv', red: 'vxv' })
+	const [tempi, setTempi]	= useState({ green: '', yellow: '', red: '' })
 	const [formData, setFormData] = useState('')
-	const [light, setLight] = useState({color:'green', key: 0})
+	const [light, setLight] = useState({color:''})
 
 
 
+
+	const streetLamp = {
+		0: 'green',
+		1: 'yellow',
+		2: 'red',
+		next: (color) => {
+			console.log('mi viene passato : ' + color)
+			switch (color) {
+				case 'green':
+					return 'yellow'
+				case 'yellow':
+					return 'red'
+				case 'red':
+					return 'green'
+				default:
+					return undefined
+			}
+		},
+		prev: (color) => {
+			switch (color) {
+				case 'green':
+					return 'red'
+				case 'yellow':
+					return 'green'
+				case 'red':
+					return 'yellow'
+				default:
+					return undefined
+			}
+		}
+	}
 
 	const saveData = () => {
 		fetch('http://localhost:5000/api/v1/update', {
@@ -46,11 +79,11 @@ const AddSemaforo = () => {
 
 
 	const nextLight = () => {
-		const sequence = ['green', 'yellow', 'red']
+		console.log('luce ora: ' + light.color)
 		setLight({
-			color: sequence[light.key +1 % 3],
-			key: light.key +1 % 3
+			color: streetLamp.next(light.color)
 		})
+		console.log('Qui lo stato della luce dovrebbe essere cambiato: ' + light.color)
 	}
 	const recordTime = (light_color, time) => {
 
@@ -60,12 +93,24 @@ const AddSemaforo = () => {
 
 	const displayTimeInForm = () => {
 		nextLight()
-		console.log('luce:' + light)
+		console.log('Luce:' + light.color)
 		let activationTime = moment().format('h:mm:ss:SSS')
-		recordTime(light.color, activationTime)
+		recordTime(streetLamp.next(light.color), activationTime)
 		console.log( tempi )
 		// setFormData(activationTime)
 	}
+
+	const onKeyDownFirstLight = (event) => {
+		let firstLight = event.target.dataset.light
+		console.log('La prima luce che si accende è : ' + firstLight)
+		setLight({
+			color: firstLight,
+			// key: lightsMap.get(firstLight),
+		})
+	}
+
+
+
 
 	function renderSwitch(step) {
 		switch(step) {
@@ -76,12 +121,14 @@ const AddSemaforo = () => {
 							<div className="col-6">
 								<Semaforo
 									light={light}
-									onLightRelease={ displayTimeInForm } />
+									onLightRelease={ displayTimeInForm }
+									onActivation={ onKeyDownFirstLight }
+									/>
 							</div>
 							<div className="col-6">
-								<div>Momento in cui è stato scatta il rosso: {tempi.red}</div>
-								<div>Momento in cui è stato scatta il giallo: {tempi.yellow}</div>
-								<div>Momento in cui è stato scatta il verde: {tempi.green}</div>
+								<div>Momento in cui scatta il rosso: {tempi.red}</div>
+								<div>Momento in cui scatta il giallo: {tempi.yellow}</div>
+								<div>Momento in cui scatta il verde: {tempi.green}</div>
 
 								{/*<form onSubmit={handleSubmit}>*/}
 								{/*	<input type="text" name="name" value={formData} onChange={handleChange}  />*/}
@@ -90,7 +137,7 @@ const AddSemaforo = () => {
 								{/*</form>*/}
 							</div>
 						</div>
-						<button onClick={ () => setStep(2)}>next</button>
+						<button  onClick={ () => setStep(2)}>next</button>
 					</>
 
 				);
@@ -117,6 +164,7 @@ const AddSemaforo = () => {
 
 	return (
 		<div className="container">
+		{console.log('luce del semaforo nel render '+  light.color)}
 			<div className="row">
 				<div className="col">
 					<h1>Aggiungi un semaforo</h1>
@@ -128,6 +176,7 @@ const AddSemaforo = () => {
 
 				</div>
 			</div>
+
 		</div>
 	);
 }
