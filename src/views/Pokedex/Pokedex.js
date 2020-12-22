@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import style from './Pokedex.module.css'
 import PokemonTable from '../../components/PokemonTable/PokemonTable'
 import PokemonCardsGrid from '../../components/PokemonCardsGrid/PokemonCardsGrid'
@@ -8,6 +8,20 @@ import {Link} from "react-router-dom";
 
 function Pokedex() {
 	const [displayGrid, setDisplayGrid] = useState("true")
+	const [data, setData] = useState([])
+
+	useEffect( () => {
+		fetch('http://localhost:5000/api/v1/semafori_list')
+			.then( res => res.json())
+			.then( res => JSON.parse(res))
+			.then( res => setData(res))
+	}, [])
+
+	console.log('parent' + data)
+	console.log('la res è una stringa ? ' + (typeof data))
+	console.log('la res è un array' + Array.isArray(data))
+
+
 
 	return(
 		<div className="container">
@@ -33,10 +47,10 @@ function Pokedex() {
 
 			<div className="row justify-content-center">
 				<div className="col">
-					{displayGrid ?
-						<PokemonCardsGrid pokemonList={PokemonListData}
-											col={{xs:1, sm:2, md:3, lg:4, xl:5}}/> :
-						<PokemonTable pokemonList={PokemonListData}/>}
+					{
+						(data.length > 0) && <PokemonTable trafficLightList={data}/>
+					}
+
 				</div>
 			</div>
 		</div>

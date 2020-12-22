@@ -8,6 +8,7 @@ import Info from "../Info/Info";
 import PokemonDetail from "../PokemonDetail/PokemonDetail";
 import Logo from "../../assets/images/Italian_traffic_signs_-_semaforo_orizzontale.svg"
 import AddSemaforo from "../Add_semaforo/AddSemaforo";
+import Play from "../Play/Play";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                   <Route exact path="/info" component={Info}/>
                   <Route exact path="/pokedex/:number" component={PokemonDetail}/>
                   <Route exact path="/add_semaforo" component={AddSemaforo}/>
+                  <Route exact path="/play/:id" component={Play}/>
               </Switch>
           </MainTemplate>
       </BrowserRouter>

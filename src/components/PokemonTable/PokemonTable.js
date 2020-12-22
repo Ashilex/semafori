@@ -6,38 +6,44 @@ import {Link} from "react-router-dom";
 import {NavLink} from "react-router-dom";
 
 function PokemonTable(props) {
-	const {pokemonList} = props
+	const {trafficLightList} = props
 
-	const pokemonTr = pokemonList.map( pokemon => {
-		const types = pokemon.type.map( type => {
-			return <PokemonType key={`${pokemon.id}-${type}`} typeName={type}/>
-		});
+	console.log('ciao' + trafficLightList)
+
+	const TL_tr = trafficLightList.map( (trafficLightEntry, index) => {
+		// const types = pokemon.type.map( type => {
+		// 	return <PokemonType key={`${pokemon.id}-${type}`} typeName={type}/>
+		// });
+
+		console.log(index)
 
 		return (
-			<tr key={pokemon.id}>
+			<tr key={index}
+			className={style.no_border}>
+				{/*<td>*/}
+				{/*	<img src={getPokemonImage(pokemon.id)}*/}
+				{/*		 onError={event => pokemonDefaultImage(event)}*/}
+				{/*		 alt=""/>*/}
+				{/*</td>*/}
 				<td>
-					<img src={getPokemonImage(pokemon.id)}
-						 onError={event => pokemonDefaultImage(event)}
-						 alt=""/>
+					{trafficLightEntry.name}
 				</td>
 				<td>
-					{pokemon.name.english}
+					<NavLink to={`/play/${trafficLightEntry.id}`}>Esegui il semaforo</NavLink>
 				</td>
-				<td>
-					{types}
-				</td>
-				<td>
-					<NavLink to={`/pokedex/${pokemon.id}`}>
-						vedi ➡
-					</NavLink>
-				</td>
+				{/*<td>*/}
+				{/*	<NavLink to={`/pokedex/${pokemon.id}`}>*/}
+				{/*		vedi ➡*/}
+				{/*	</NavLink>*/}
+				{/*</td>*/}
 			</tr>
 		)
-	})
+	});
+
 	return(
 		<table className="table">
 			<tbody>
-			{pokemonTr}
+			{ TL_tr }
 			</tbody>
 		</table>
 	)
