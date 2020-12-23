@@ -1,9 +1,9 @@
-// import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import clsx from "clsx";
 import style from "../../views/Info/Info.module.css";
 
 const Semaforo = (props) => {
-	const {light, onLightRelease, onActivation} = props
+	const {light, onLightRelease, onActivation, id} = props
 
 	const handleChange = () => {
 		onLightRelease()
@@ -16,7 +16,7 @@ const Semaforo = (props) => {
 
 
 	return (
-		<div>
+		<div key={id}>
 			<div
 				data-light='red'
 				className={clsx(style.redLight, style.light, {[style.active]: light.color === 'red'})}

@@ -29,7 +29,14 @@ function PokemonTable(props) {
 					{trafficLightEntry.name}
 				</td>
 				<td>
-					<NavLink to={`/play/${trafficLightEntry.id}`}>Esegui il semaforo</NavLink>
+					<Link to={{ pathname: '/add_semaforo',
+						state: {
+							nextId: trafficLightEntry.id
+						}
+					}}>Esegui il semaforo</Link>
+				</td>
+				<td>
+					<NavLink to={`/play/${trafficLightEntry.id}`}>Monitora</NavLink>
 				</td>
 				{/*<td>*/}
 				{/*	<NavLink to={`/pokedex/${pokemon.id}`}>*/}
