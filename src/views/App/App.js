@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom'
 
 import MainTemplate from '../../components/MainTemplate/MainTemplate'
 import Home from "../Home/Home";

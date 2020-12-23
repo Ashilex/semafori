@@ -3,18 +3,20 @@ import React, {useState, useEffect} from 'react'
 import clsx from "clsx";
 import style from './AddSemaforo.module.css';
 import Semaforo from '../../components/Semaforo/Semaforo'
-
+import {Link, useLocation } from 'react-router-dom'
 
 import moment from 'moment'
 
 
 
-const AddSemaforo = () => {
+const AddSemaforo = (props) => {
+	const { nextId } = props.location.state
 	const [step, setStep] = useState(1)
 	const [data, setData] = useState([])
 	const [tempi, setTempi]	= useState({ green: '', yellow: '', red: '' })
 	const [formData, setFormData] = useState('')
 	const [light, setLight] = useState({color:''})
+	const location = useLocation();
 
 
 
@@ -57,7 +59,7 @@ const AddSemaforo = () => {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				id: '11',
+				id: nextId.toString(),
 				name: formData,
 				record: tempi
 			}),
@@ -148,6 +150,7 @@ const AddSemaforo = () => {
 							Inserisci nome del semaforo
 							<input  type="text" name="name_semaforo" value={formData} onChange={handleChange}  />
 							<h5>Titolo del semaforo</h5>
+							<h4>Id: { `${nextId}` }</h4>
 							<div>{formData}</div>
 							<button type="submit">Invia i dati</button>
 						</form>

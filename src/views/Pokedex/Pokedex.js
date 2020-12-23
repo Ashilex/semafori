@@ -4,11 +4,12 @@ import PokemonTable from '../../components/PokemonTable/PokemonTable'
 import PokemonCardsGrid from '../../components/PokemonCardsGrid/PokemonCardsGrid'
 import clsx from 'clsx'
 import PokemonListData from '../../assets/data/pokedex'
-import {Link} from "react-router-dom";
+import {Link, useLocation } from "react-router-dom";
 
 function Pokedex() {
 	const [displayGrid, setDisplayGrid] = useState("true")
 	const [data, setData] = useState([])
+
 
 	useEffect( () => {
 		fetch('http://localhost:5000/api/v1/semafori_list')
@@ -40,7 +41,13 @@ function Pokedex() {
 				</div>
 				<butto className="col-3">
 					<button className="button btn-secondary">
-						<Link to={`/add_semaforo`}>Aggiungi un nuovo semaforo</Link>
+						<Link to={{ pathname: '/add_semaforo',
+									state: {
+										nextId: data.length
+									}
+						}}>
+							Aggiungi un nuovo semaforo
+						</Link>
 					</button>
 				</butto>
 			</div>
