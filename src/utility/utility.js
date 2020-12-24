@@ -10,4 +10,7 @@ export const cleanText = (text) => text.replace(/[^ -~]+/g, " ");
 const getPokemonImage = (id) =>
 	`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${zeroPad(id, 3)}.png`;
 
-export default getPokemonImage
+const getImage = (id) =>
+	`https://raw.githubusercontent.com/Ashilex/semafori/Dev/src/assets/images/${id}.png`;
+
+export default getImage

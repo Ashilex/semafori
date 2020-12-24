@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import getPokemonImage, {pokemonDefaultImage} from '../../utility/utility.js'
 import style from './PokemonTable.module.css'
 import PokemonType from "../PokemonType/PokemonType";
 import {Link} from "react-router-dom";
 import {NavLink} from "react-router-dom";
 import {Accordion, Card} from 'react-bootstrap'
+import getImage, {pokemonDefaultImage, zeroPad} from "../../utility/utility";
 import Styled from 'styled-components'
 import clsx from 'clsx'
 
@@ -22,19 +22,19 @@ function PokemonTable(props) {
 		} else {
 			setAttivo(id);
 		}
-
 	}
+
 
 	console.log('ciao' + trafficLightList)
 
-	const TL_rowCard_item = ['ale', 'miki', 'emmanuel', 'persefone'].map( (e, index) => {
+	const TL_rowCard_item = trafficLightList.map( (trafficLightEntry, index) => {
 		return (
 			<Card>
 				<div className="d-flex justify-content-center">
 					<div className={`d-flex flex-column align-items-center ${style.perc100}`}>
 
-						<Accordion.Toggle className={(attivo === index) ? `${style.active}` : `${style.default_line}` } style={{ backgroundImage: `url("https://www.nicesnippets.com/image/imgpsh_fullsize.png")`}} eventKey={`${index}`} onClick={ () => toggle(index) }>
-							{`${e}`}
+						<Accordion.Toggle className={(attivo === index) ? `${style.active}` : `${style.default_line}` } style={{ backgroundImage: `url(${getImage(trafficLightEntry.id)})`}} eventKey={`${index}`} onClick={ () => toggle(index) }>
+							{`${trafficLightEntry.name}`}
 						</Accordion.Toggle>
 						<Accordion.Collapse eventKey={`${index}`}>
 							<Card.Body >Hello! I'm the body</Card.Body>
