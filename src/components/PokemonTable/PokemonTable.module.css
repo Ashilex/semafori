@@ -61,3 +61,33 @@ svg:hover #lineTwo {
     transform: rotate(-450deg);
     transform-origin: 50% 50%;
 }
+
+
+.default_line {
+    width: 85%;
+    background-color: #f6fdff !important;
+    border: 1px solid white;
+    border-radius: 12px;
+}
+
+.active {
+    background-color: #ffffcd ;
+    height: 40px;
+    width: 98%;
+    transition: width 0.4s;
+    border-radius: 12px;
+    border: 1px solid white;
+
+}
+
+.accordion {
+    width: 100%;
+}
+
+.perc85 {
+    width: 85%;
+}
+
+.perc100 {
+    width: 100%;
+}

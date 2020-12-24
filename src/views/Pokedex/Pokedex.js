@@ -25,7 +25,7 @@ function Pokedex() {
 
 
 	return(
-		<div className="container">
+		<div className="container-fluid">
 			<div className="row justify-content-center">
 				<div className="offset-3 col">
 					 <div className={style.switch}>
@@ -53,7 +53,7 @@ function Pokedex() {
 			</div>
 
 			<div className="row justify-content-center">
-				<div className="col">
+				<div >
 					{
 						(data.length > 0) && <PokemonTable trafficLightList={data}/>
 					}
