@@ -7,6 +7,7 @@ import {Accordion, Card} from 'react-bootstrap'
 import getImage, {pokemonDefaultImage, zeroPad} from "../../utility/utility";
 import Styled from 'styled-components'
 import clsx from 'clsx'
+import * as Icon from 'react-bootstrap-icons';
 
 
 
@@ -29,15 +30,34 @@ function PokemonTable(props) {
 
 	const TL_rowCard_item = trafficLightList.map( (trafficLightEntry, index) => {
 		return (
-			<Card>
+			<Card className={style.cardTL}>
 				<div className="d-flex justify-content-center">
 					<div className={`d-flex flex-column align-items-center ${style.perc100}`}>
 
-						<Accordion.Toggle className={(attivo === index) ? `${style.active}` : `${style.default_line}` } style={{ backgroundImage: `url(${getImage(trafficLightEntry.id)})`}} eventKey={`${index}`} onClick={ () => toggle(index) }>
-							{`${trafficLightEntry.name}`}
+						<Accordion.Toggle className={ (attivo === index) ? `${style.active}` : `${style.default_line}` }
+										  style={ (attivo === index) ? { backgroundImage: `url(${getImage(trafficLightEntry.id)})`} : {} }
+										  eventKey={`${index}`}
+										  onClick={ () => toggle(index) }>
+							<div className="textButton">
+								{`${trafficLightEntry.name}`}
+							</div>
 						</Accordion.Toggle>
-						<Accordion.Collapse eventKey={`${index}`}>
-							<Card.Body >Hello! I'm the body</Card.Body>
+						<Accordion.Collapse className={`rounded-bottom ${style.collapse}`} eventKey={`${index}`}>
+							<Card.Body >
+								<div className="d-flex align-items-center">
+									<Icon.Geo color="red" size={19} className="mr-2"/> Rosate (MI)
+								</div>
+								<div className="d-flex align-items-center mt-2">
+									<Icon.RecordCircle color="red" size={19} className="mr-2"/> <Link to={{ pathname: '/add_semaforo',
+									state: {
+										nextId: trafficLightEntry.id
+									}
+								}}>Aggiungi registrazione</Link>
+								</div>
+								<div className="d-flex align-items-center mt-2">
+									<Icon.Flag color="green" size={19} className="mr-2"/> <NavLink to={`/play/${trafficLightEntry.id}`}>Play</NavLink>
+								</div>
+							</Card.Body>
 						</Accordion.Collapse>
 					</div>
 				</div>
